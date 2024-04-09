@@ -17,7 +17,6 @@ import com.sebas.demo.repositories.RepositoryPersona;
 import com.sebas.demo.repositories.RepositorySede;
 import com.sebas.demo.repositories.RepositoryVoluntario;
 import com.sebas.demo.repositories.entities.Persona;
-import com.sebas.demo.repositories.entities.Sede;
 import com.sebas.demo.repositories.entities.Voluntario;
 import com.sebas.demo.services.ServiceVoluntario;
 

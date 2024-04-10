@@ -1,6 +1,5 @@
 package com.sebas.demo.repositories.entities;
 
-import java.math.BigInteger;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +16,7 @@ public class Roles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger id;
+    private Long id;
     @Column(name = "nombre_rol")
     private String nombreRol;
     

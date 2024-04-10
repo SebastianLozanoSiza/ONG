@@ -15,8 +15,11 @@ import com.sebas.demo.repositories.models.JWTResponse;
 import com.sebas.demo.services.JWTService;
 import com.sebas.demo.services.JWTUserDetailService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
+@Tag(name = "Authentication", description = "Generar un token para autenticar al usuario")
 @RestController
 @AllArgsConstructor
 public class AuthenticationController {
@@ -25,6 +28,7 @@ public class AuthenticationController {
     private final JWTUserDetailService jwtUserDetailService;
     private final JWTService jwtService;
 
+    @Operation(summary = "Obtener un token a través del nombre de usuario y contraseña")
     @PostMapping("/authenticate")
     public ResponseEntity<?> postToken(@RequestBody JWTRequest request) {
         this.authenticate(request);

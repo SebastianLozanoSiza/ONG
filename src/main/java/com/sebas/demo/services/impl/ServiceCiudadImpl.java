@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
+
+import com.sebas.demo.exception.BussinesRuleException;
 import com.sebas.demo.repositories.RepositoryCiudad;
 import com.sebas.demo.repositories.entities.Ciudad;
 import com.sebas.demo.services.ServiceCiudad;
+import com.sebas.demo.exception.BussinesRuleException;
 
 import lombok.AllArgsConstructor;
 
@@ -27,9 +29,13 @@ public class ServiceCiudadImpl implements ServiceCiudad{
     }
 
     @Override
-    public Ciudad findById(Long id) {
-        return repositoryCiudad.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Error! Ciudad no existente"));
+    public Ciudad findById(Long id) throws BussinesRuleException{
+        Optional<Ciudad> ciudadOptional = repositoryCiudad.findById(id);
+        if(!ciudadOptional.isPresent()){
+            BussinesRuleException exception= new BussinesRuleException("1001","Error! Ciudad no existente",HttpStatus.PRECONDITION_FAILED);
+            throw exception; 
+        }
+        return ciudadOptional.get();
     }
 
     @Override

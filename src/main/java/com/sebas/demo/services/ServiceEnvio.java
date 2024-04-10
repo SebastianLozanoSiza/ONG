@@ -9,6 +9,6 @@ public interface ServiceEnvio {
 
     List<EnvioDTO> findAll();
 
-    Envio findById(Long id);
+    Envio findById(Long id) ;
     
 }

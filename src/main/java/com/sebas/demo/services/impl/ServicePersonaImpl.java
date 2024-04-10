@@ -59,8 +59,10 @@ public class ServicePersonaImpl implements ServicePersona{
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Error! Persona no existente"));
     }
 
+    @Override
     public Persona findByEmail(String email) {
-        return repositoryPersona.findByEmail(email);
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByEmail'");
     }
     
 }

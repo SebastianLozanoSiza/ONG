@@ -17,7 +17,7 @@ import com.sebas.demo.services.ServiceEnvio;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/envios/")
+@RequestMapping("/envios")
 @AllArgsConstructor
 public class EnvioController {
 

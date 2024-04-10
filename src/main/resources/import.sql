@@ -21,26 +21,26 @@ INSERT INTO productos (nombre, tipo) VALUES ('Insulina', 1);
 INSERT INTO productos (nombre, tipo) VALUES ('Antidepresivo', 1);
 
 --INSERTS TABLA personas
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('6789012345', 'Juan', 'Hernández', 'juan.hernandez@example.com', '6789012345', 0);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('7890123456', 'Luisa', 'Gómez', 'luisa.gomez@example.com', '7890123456', 0);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('8901234567', 'Miguel', 'Jiménez', 'miguel.jimenez@example.com', '8901234567', 0);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('9012345678', 'Sofía', 'Torres', 'sofia.torres@example.com', '9012345678', 0);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('0123456789', 'Diego', 'Ruiz', 'diego.ruiz@example.com', '0123456789', 0);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('1234567890', 'Ana', 'González', 'ana.gonzalez@example.com', '1234567890', 1);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('2345678901', 'Pedro', 'Rodríguez', 'pedro.rodriguez@example.com', '2345678901', 1);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('3456789012', 'María', 'López', 'maria.lopez@example.com', '3456789012', 1);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('4567890123', 'Carlos', 'Martínez', 'carlos.martinez@example.com', '4567890123', 1);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('5678901234', 'Laura', 'Pérez', 'laura.perez@example.com', '5678901234', 1);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('123456789', 'Juan', 'Perez', 'juan.perez@example.com', '123456789', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('234567890', 'Ana', 'Gomez', 'ana.gomez@example.com', '234567890', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('345678901', 'Pedro', 'Lopez', 'pedro.lopez@example.com', '345678901', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('456789012', 'Maria', 'Rodriguez', 'maria.rodriguez@example.com', '456789012', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('567890123', 'Luis', 'Martinez', 'luis.martinez@example.com', '567890123', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('678901234', 'Laura', 'Hernandez', 'laura.hernandez@example.com', '678901234', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('789012345', 'Carlos', 'Gonzalez', 'carlos.gonzalez@example.com', '789012345', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('890123456', 'Isabel', 'Perez', 'isabel.perez@example.com', '890123456', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('901234567', 'Fernando', 'Sanchez', 'fernando.sanchez@example.com', '901234567', 2);
-INSERT INTO personas (cedula, nombre, apellido, email, telefono, rol) VALUES ('012345678', 'Elena', 'Ramirez', 'elena.ramirez@example.com', '012345678', 2);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('6789012345', 'Juan', 'Hernández', 'juan.hernandez@example.com', '6789012345', 'to_be_encoded', 0);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('7890123456', 'Luisa', 'Gómez', 'luisa.gomez@example.com', '7890123456', 'to_be_encoded', 0);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('8901234567', 'Miguel', 'Jiménez', 'miguel.jimenez@example.com', '8901234567', 'to_be_encoded', 2);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('9012345678', 'Sofía', 'Torres', 'sofia.torres@example.com', '9012345678', 'to_be_encoded', 2);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('0123456789', 'Diego', 'Ruiz', 'diego.ruiz@example.com', '0123456789', 'to_be_encoded', 2);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('1234567890', 'Ana', 'González', 'ana.gonzalez@example.com', '1234567890', 'to_be_encoded', 1);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('2345678901', 'Pedro', 'Rodríguez', 'pedro.rodriguez@example.com', '2345678901', 'to_be_encoded', 1);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('3456789012', 'María', 'López', 'maria.lopez@example.com', '3456789012', 'to_be_encoded', 1);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('4567890123', 'Carlos', 'Martínez', 'carlos.martinez@example.com', '4567890123', 'to_be_encoded', 1);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono, pwd, rol) VALUES ('5678901234', 'Laura', 'Pérez', 'laura.perez@example.com', '5678901234', 'to_be_encoded', 1);
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('123456789', 'Juan', 'Perez', 'juan.perez@example.com', '123456789');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('234567890', 'Ana', 'Gomez', 'ana.gomez@example.com', '234567890');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('345678901', 'Pedro', 'Lopez', 'pedro.lopez@example.com', '345678901');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('456789012', 'Maria', 'Rodriguez', 'maria.rodriguez@example.com', '456789012');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('567890123', 'Luis', 'Martinez', 'luis.martinez@example.com', '567890123');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('678901234', 'Laura', 'Hernandez', 'laura.hernandez@example.com', '678901234');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('789012345', 'Carlos', 'Gonzalez', 'carlos.gonzalez@example.com', '789012345');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('890123456', 'Isabel', 'Perez', 'isabel.perez@example.com', '890123456');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('901234567', 'Fernando', 'Sanchez', 'fernando.sanchez@example.com', '901234567');
+INSERT INTO personas (cedula, nombre, apellido, email, telefono) VALUES ('012345678', 'Elena', 'Ramirez', 'elena.ramirez@example.com', '012345678');
 
 --INSERTS TABLA ciudades
 INSERT INTO ciudades (nombre) VALUES ('Bogotá');
@@ -67,6 +67,19 @@ INSERT INTO sedes (nombre_sede, direccion, id_ciudad, id_director) VALUES ('Sede
 INSERT INTO tipo_cuota (nombre, precio) VALUES ('minima', 10);
 INSERT INTO tipo_cuota (nombre, precio) VALUES ('media', 20);
 INSERT INTO tipo_cuota (nombre, precio) VALUES ('maxima', 30);
+
+--Insertar datos en las tabla de roles
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_ADMIN', 1);      
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_ADMIN', 2); 
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_AUXILIAR', 3); 
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_AUXILIAR', 4); 
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_AUXILIAR', 5); 
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_DIRECTOR', 6); 
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_DIRECTOR', 7); 
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_DIRECTOR', 8); 
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_DIRECTOR', 9); 
+INSERT INTO roles (nombre_rol, id_persona) VALUES ('ROLE_DIRECTOR', 10); 
+
 
 --INSERTS TABLA socios
 INSERT INTO socios (fecha_pago, cuenta_bancaria, id_tipo_cuota, id_persona, id_sede) VALUES ('2024-03-12', 'Nequi', 1, 11, 1);

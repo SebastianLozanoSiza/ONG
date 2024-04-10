@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/sedes/")
+@RequestMapping("/sedes")
 @AllArgsConstructor
 public class SedeController {
     

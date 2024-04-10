@@ -20,7 +20,7 @@ import com.sebas.demo.services.ServiceVoluntario;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/reportes/")
+@RequestMapping("/reportes")
 @AllArgsConstructor
 public class ReporteController {
     

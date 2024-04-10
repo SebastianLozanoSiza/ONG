@@ -2,6 +2,7 @@ package com.sebas.demo.repositories.entities;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -16,6 +17,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -55,10 +58,13 @@ public class Persona implements Serializable{
     @NotEmpty(message = "No puede estar vacio")
     @Column(nullable = false)
     private String telefono;
+    
+    @Column(name = "pwd")
+    @JsonIgnore
+    private String contraseña;
 
-    @NotEmpty(message = "No puede estar vacio")
-    @Column(nullable = false)
     @Enumerated(EnumType.ORDINAL)
+    @JsonIgnore
     private TipoRol rol;
 
     @JsonIgnore
@@ -72,4 +78,9 @@ public class Persona implements Serializable{
     @JsonIgnore
     @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Voluntario voluntario;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_persona")
+    private List<Roles> roles;
 }

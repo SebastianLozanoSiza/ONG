@@ -30,7 +30,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/socios/")
+@RequestMapping("/socios")
 @AllArgsConstructor
 public class SocioController {
 

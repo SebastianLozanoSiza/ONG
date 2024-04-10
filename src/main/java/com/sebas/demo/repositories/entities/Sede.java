@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,18 +30,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "sedes")
+@Schema(name = "Sede", description = "Representa la sede en el modelo de base datos")
 public class Sede implements Serializable {
-    
+
+    @Schema(name = "id", required = true, example = "1", defaultValue = "1", description = "Representa el indicador de la sede") 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "No puede estar vacio")
     @Column(nullable = false, name = "nombre_sede")
+    @Schema(name = "nombre", required = true, example = "Refugio de Inmigrantes", defaultValue = "Refugio", description = "Representa el nombre que se le da a la sede") 
     private String nombreSede;
 
     @NotEmpty(message = "No puede estar vacio")
     @Column(nullable = false)
+    @Schema(name = "direccion", required = true, example = "Transversal 22", defaultValue = "Transversal", description = "Representa la direccion de la sede") 
     private String direccion;
 
     @JsonIgnore
@@ -48,6 +53,7 @@ public class Sede implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     private Ciudad ciudad;
 
+    @Schema(name = "director", required = true, example = "Fabrizio", defaultValue = "Fabrizio", description = "Representa el nombre del director de la sede") 
     @JsonIgnoreProperties(value={"sedes", "hibernateLazyInitializer", "handler"}, allowSetters=true)
     @JoinColumn(name = "id_director", unique = true)
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

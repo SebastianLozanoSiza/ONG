@@ -22,16 +22,24 @@ import com.sebas.demo.dto.SedeDTO;
 import com.sebas.demo.repositories.entities.Sede;
 import com.sebas.demo.services.ServiceSede;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
+@Tag(name = "API de sedes", description = "Esta api server tiene toda la funcionalidad de las sedes")
 @RequestMapping("/sedes")
 @AllArgsConstructor
 public class SedeController {
     
     private ServiceSede serviceSede;
 
+    @Operation(description = "Retorna todos los datos de las sedes", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/")
     public ResponseEntity<List<SedeDTO>> findAll(){
         List<SedeDTO> findAll = serviceSede.findAll();
@@ -43,6 +51,9 @@ public class SedeController {
         
     }
 
+    @Operation(description = "Retorna todos los datos de las sedes filtrados por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/{id}")
     public ResponseEntity<Map<String,Object>> findAllById(@PathVariable Long id){
         Map<String,Object> response = new HashMap<>();
@@ -51,6 +62,9 @@ public class SedeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Añade las sedes", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @PostMapping("/")
     public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody SedeDTO sede, BindingResult result){
         SedeDTO sedeNew = null;
@@ -78,6 +92,9 @@ public class SedeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Actualiza los datos de cada sede filtrada por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody Sede sede, BindingResult result,
             @PathVariable Long id) {
@@ -111,6 +128,9 @@ public class SedeController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Elimina la sede seleccionada por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
 

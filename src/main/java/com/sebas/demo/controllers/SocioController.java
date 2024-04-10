@@ -26,9 +26,14 @@ import com.sebas.demo.repositories.entities.Persona;
 import com.sebas.demo.repositories.entities.Socio;
 import com.sebas.demo.services.ServiceSocio;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
+@Tag(name = "API de socios", description = "Esta api server tiene toda la funcionalidad de las socios")
 @RestController
 @RequestMapping("/socios")
 @AllArgsConstructor
@@ -43,6 +48,9 @@ public class SocioController {
     private SocioDTOConverter convert;
 
 
+    @Operation(description = "Retorna todos los datos de los socios", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/")
     public ResponseEntity<List<SocioDTO>> findAll() {
         List<SocioDTO> findAll = serviceSocio.findAll();
@@ -53,6 +61,9 @@ public class SocioController {
         }
     }
 
+    @Operation(description = "Retorna todos los datos de los socios filtrados por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> findAllById(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
@@ -61,6 +72,9 @@ public class SocioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Añade un nuevo socio", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @PostMapping("/")
     public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody SocioDTO socioDTO, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
@@ -109,6 +123,9 @@ public class SocioController {
     }
     
 
+    @Operation(description = "Actualiza los datos de un socio por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody Socio socio, BindingResult result,
             @PathVariable Long id) {
@@ -142,6 +159,9 @@ public class SocioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Elimina un socio por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
 

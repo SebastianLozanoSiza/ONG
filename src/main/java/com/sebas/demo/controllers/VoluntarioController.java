@@ -26,9 +26,14 @@ import com.sebas.demo.repositories.entities.Persona;
 import com.sebas.demo.repositories.entities.Voluntario;
 import com.sebas.demo.services.ServiceVoluntario;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
+@Tag(name = "API de voluntarios", description = "Esta api server tiene toda la funcionalidad de las voluntarios")
 @RestController
 @RequestMapping("/voluntarios")
 @AllArgsConstructor
@@ -42,6 +47,9 @@ public class VoluntarioController {
 
     private VoluntarioDTOConverter convert;
 
+    @Operation(description = "Retorna todos los datos de los voluntarios", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/")
     public ResponseEntity<List<VoluntarioDTO>> findAll() {
         List<VoluntarioDTO> findAll = serviceVoluntario.findAll();
@@ -52,6 +60,9 @@ public class VoluntarioController {
         }
     }
 
+    @Operation(description = "Retorna todos los datos de los voluntarios por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> findAllById(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
@@ -60,6 +71,9 @@ public class VoluntarioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Añade un nuevo voluntario", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @PostMapping("/")
     public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody VoluntarioDTO voluntarioDTO, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
@@ -108,6 +122,9 @@ public class VoluntarioController {
     }
     
 
+    @Operation(description = "Actualiza los datos de un voluntario por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody Voluntario voluntario, BindingResult result,
             @PathVariable Long id) {
@@ -141,6 +158,9 @@ public class VoluntarioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Elimina un voluntario por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
 

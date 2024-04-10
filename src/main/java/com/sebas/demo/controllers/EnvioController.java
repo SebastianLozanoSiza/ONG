@@ -14,8 +14,13 @@ import com.sebas.demo.dto.EnvioDTO;
 import com.sebas.demo.repositories.entities.Envio;
 import com.sebas.demo.services.ServiceEnvio;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
+@Tag(name = "API de envios", description = "Esta api server tiene toda la funcionalidad de los envios")
 @RestController
 @RequestMapping("/envios")
 @AllArgsConstructor
@@ -27,6 +32,9 @@ public class EnvioController {
     @Autowired
     private EnvioDTOConverter convert;
 
+    @Operation(description = "Retorna todos los datos de los envios", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/")
     public ResponseEntity<List<EnvioDTO>> findAll() {
         List<EnvioDTO> envios = serviceEnvio.findAll();
@@ -37,6 +45,9 @@ public class EnvioController {
         }
     }
 
+    @Operation(description = "Retorna todos los datos de los envios filtrados por su id", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/{id}")
     public ResponseEntity<EnvioDTO> findById(@PathVariable Long id) {
         Envio envio = serviceEnvio.findById(id);

@@ -50,7 +50,7 @@ public class ServiceVoluntarioImpl implements ServiceVoluntario {
     public Voluntario findById(Long id) {
         return repositoryVoluntario.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.PRECONDITION_FAILED,
-                        "Error! Usuario no existente"));
+                        "Error! Voluntario no existente"));
     }
 
     @Override

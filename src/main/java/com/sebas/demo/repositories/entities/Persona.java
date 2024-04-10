@@ -4,6 +4,7 @@ package com.sebas.demo.repositories.entities;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sebas.demo.resources.TipoRol;
 
 import jakarta.persistence.CascadeType;
@@ -28,6 +29,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "personas")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Persona implements Serializable{
     
     @Id

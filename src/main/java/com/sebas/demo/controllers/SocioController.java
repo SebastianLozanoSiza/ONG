@@ -18,33 +18,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sebas.demo.config.VoluntarioDTOConverter;
-import com.sebas.demo.dto.VoluntarioDTO;
+import com.sebas.demo.config.SocioDTOConverter;
+import com.sebas.demo.dto.SocioDTO;
 import com.sebas.demo.repositories.RepositoryPersona;
-import com.sebas.demo.repositories.RepositoryVoluntario;
+import com.sebas.demo.repositories.RepositorySocio;
 import com.sebas.demo.repositories.entities.Persona;
-import com.sebas.demo.repositories.entities.Voluntario;
-import com.sebas.demo.services.ServiceVoluntario;
+import com.sebas.demo.repositories.entities.Socio;
+import com.sebas.demo.services.ServiceSocio;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/voluntarios/")
+@RequestMapping("/socios/")
 @AllArgsConstructor
-public class VoluntarioController {
+public class SocioController {
 
-    private ServiceVoluntario serviceVoluntario;
+    private ServiceSocio serviceSocio;
 
-    private RepositoryVoluntario repositoryVoluntario;
+    private RepositorySocio repositorySocio;
 
     private RepositoryPersona repositoryPersona;
 
-    private VoluntarioDTOConverter convert;
+    private SocioDTOConverter convert;
+
 
     @GetMapping("/")
-    public ResponseEntity<List<VoluntarioDTO>> findAll() {
-        List<VoluntarioDTO> findAll = serviceVoluntario.findAll();
+    public ResponseEntity<List<SocioDTO>> findAll() {
+        List<SocioDTO> findAll = serviceSocio.findAll();
         if (findAll == null || findAll.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
@@ -55,13 +56,13 @@ public class VoluntarioController {
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> findAllById(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
-        Voluntario voluntario = serviceVoluntario.findById(id);
-        response.put("voluntario", voluntario);
+        Socio socio = serviceSocio.findById(id);
+        response.put("socio", socio);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody VoluntarioDTO voluntarioDTO, BindingResult result) {
+    public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody SocioDTO socioDTO, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
     
         if (result.hasErrors()) {
@@ -74,29 +75,29 @@ public class VoluntarioController {
         }
     
         try {
-            // Convertir el DTO de voluntario a una entidad
-            Voluntario voluntario = convert.convertVoluntarioEntity(voluntarioDTO);
+            // Convertir el DTO de socio a una entidad
+            Socio socio = convert.convertSocioEntity(socioDTO);
     
             // Crear una nueva persona
             Persona persona = new Persona();
-            persona.setCedula(voluntarioDTO.getCedula());
-            persona.setNombre(voluntarioDTO.getNombrePersona());
-            persona.setEmail(voluntarioDTO.getEmail());
-            persona.setTelefono(voluntarioDTO.getTelefono());
+            persona.setCedula(socioDTO.getCedula());
+            persona.setNombre(socioDTO.getNombrePersona());
+            persona.setEmail(socioDTO.getEmail());
+            persona.setTelefono(socioDTO.getTelefono());
     
             // Guardar la persona en el repositorio
             persona = repositoryPersona.save(persona);
     
-            // Asignar la persona al voluntario
-            voluntario.setPersona(persona);
+            // Asignar la persona al socio
+            socio.setPersona(persona);
     
-            // Guardar el voluntario en el repositorio
-            voluntario = repositoryVoluntario.save(voluntario);
+            // Guardar el socio en el repositorio
+            socio = repositorySocio.save(socio);
     
-            // Convertir la entidad de voluntario a DTO y retornarla
-            VoluntarioDTO savedVoluntarioDTO = convert.convertVoluntarioDTO(voluntario);
-            response.put("mensaje", "El voluntario ha sido creado con éxito");
-            response.put("voluntario", savedVoluntarioDTO);
+            // Convertir la entidad de socio a DTO y retornarla
+            SocioDTO savedSocioDTO = convert.convertSocioDTO(socio);
+            response.put("mensaje", "El socio ha sido creado con éxito");
+            response.put("socio", savedSocioDTO);
             return new ResponseEntity<>(response, HttpStatus.OK);
     
         } catch (DataAccessException e) {
@@ -109,10 +110,10 @@ public class VoluntarioController {
     
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody Voluntario voluntario, BindingResult result,
+    public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody Socio socio, BindingResult result,
             @PathVariable Long id) {
 
-        Voluntario voluntarioUpdate = null;
+        Socio socioUpdate = null;
 
         Map<String, Object> response = new HashMap<>();
 
@@ -126,7 +127,7 @@ public class VoluntarioController {
         }
         try {
 
-            voluntarioUpdate = serviceVoluntario.update(id, voluntario);
+            socioUpdate = serviceSocio.update(id, socio);
 
         } catch (DataAccessException e) {
             response.put("message", "Error al realizar los inserts en la base de datos");
@@ -135,8 +136,8 @@ public class VoluntarioController {
 
         }
 
-        response.put("mensaje", "Voluntario actualizado exitosamente");
-        response.put("voluntario", voluntarioUpdate);
+        response.put("mensaje", "Socio actualizado exitosamente");
+        response.put("socio", socioUpdate);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -146,15 +147,15 @@ public class VoluntarioController {
 
         Map<String, Object> response = new HashMap<>();
         try {
-            serviceVoluntario.delete(id);
+            serviceSocio.delete(id);
         } catch (DataAccessException e) {
             response.put("message", "Error al realizar los inserts en la base de datos");
             response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        response.put("message", "Voluntario eliminado exitosamente");
+        response.put("message", "Socio eliminado exitosamente");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+    
 }

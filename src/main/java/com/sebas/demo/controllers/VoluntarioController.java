@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sebas.demo.config.VoluntarioDTOConverter;
+import com.sebas.demo.dto.SocioDTO;
 import com.sebas.demo.dto.VoluntarioDTO;
 import com.sebas.demo.repositories.RepositoryPersona;
 import com.sebas.demo.repositories.RepositoryVoluntario;
@@ -47,9 +48,9 @@ public class VoluntarioController {
 
     private VoluntarioDTOConverter convert;
 
-    @Operation(description = "Retorna todos los datos de los voluntarios", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Retorna todos los datos de los voluntarios", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @GetMapping("/")
     public ResponseEntity<List<VoluntarioDTO>> findAll() {
         List<VoluntarioDTO> findAll = serviceVoluntario.findAll();
@@ -60,9 +61,9 @@ public class VoluntarioController {
         }
     }
 
-    @Operation(description = "Retorna todos los datos de los voluntarios por su id", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Retorna todos los datos de los voluntarios por su id", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error") })
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> findAllById(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
@@ -71,13 +72,14 @@ public class VoluntarioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(description = "Añade un nuevo voluntario", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Añade un nuevo voluntario", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @PostMapping("/")
-    public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody VoluntarioDTO voluntarioDTO, BindingResult result) {
+    public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody VoluntarioDTO voluntarioDTO,
+            BindingResult result) {
         Map<String, Object> response = new HashMap<>();
-    
+
         if (result.hasErrors()) {
             List<String> errors = result.getFieldErrors()
                     .stream()
@@ -86,45 +88,44 @@ public class VoluntarioController {
             response.put("errors", errors);
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-    
+
         try {
             // Convertir el DTO de voluntario a una entidad
             Voluntario voluntario = convert.convertVoluntarioEntity(voluntarioDTO);
-    
+
             // Crear una nueva persona
             Persona persona = new Persona();
             persona.setCedula(voluntarioDTO.getCedula());
             persona.setNombre(voluntarioDTO.getNombrePersona());
             persona.setEmail(voluntarioDTO.getEmail());
             persona.setTelefono(voluntarioDTO.getTelefono());
-    
+
             // Guardar la persona en el repositorio
             persona = repositoryPersona.save(persona);
-    
+
             // Asignar la persona al voluntario
             voluntario.setPersona(persona);
-    
+
             // Guardar el voluntario en el repositorio
             voluntario = repositoryVoluntario.save(voluntario);
-    
+
             // Convertir la entidad de voluntario a DTO y retornarla
             VoluntarioDTO savedVoluntarioDTO = convert.convertVoluntarioDTO(voluntario);
             response.put("mensaje", "El voluntario ha sido creado con éxito");
             response.put("voluntario", savedVoluntarioDTO);
             return new ResponseEntity<>(response, HttpStatus.OK);
-    
+
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
             response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    
+
         }
     }
-    
 
-    @Operation(description = "Actualiza los datos de un voluntario por su id", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Actualiza los datos de un voluntario por su id", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody Voluntario voluntario, BindingResult result,
             @PathVariable Long id) {
@@ -158,9 +159,9 @@ public class VoluntarioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(description = "Elimina un voluntario por su id", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Elimina un voluntario por su id", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
 

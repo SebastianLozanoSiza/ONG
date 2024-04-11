@@ -12,6 +12,8 @@ public interface ServiceSocio {
 
     Socio findById(Long id);
 
+    List<SocioDTO> findByTipoCuota(String nombreTipoCuota);
+
     SocioDTO save(PersonaDTO persona, SocioDTO socio);
 
     Socio update(Long id, Socio socio);

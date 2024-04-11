@@ -47,10 +47,9 @@ public class SocioController {
 
     private SocioDTOConverter convert;
 
-
-    @Operation(description = "Retorna todos los datos de los socios", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Retorna todos los datos de los socios", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @GetMapping("/")
     public ResponseEntity<List<SocioDTO>> findAll() {
         List<SocioDTO> findAll = serviceSocio.findAll();
@@ -61,9 +60,9 @@ public class SocioController {
         }
     }
 
-    @Operation(description = "Retorna todos los datos de los socios filtrados por su id", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Retorna todos los datos de los socios filtrados por su id", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> findAllById(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
@@ -72,13 +71,23 @@ public class SocioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(description = "Añade un nuevo socio", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @GetMapping("/tipo-cuota/{nombreTipoCuota}")
+    public ResponseEntity<List<SocioDTO>> findByTipoCuota(@PathVariable String nombreTipoCuota) {
+        List<SocioDTO> socios = serviceSocio.findByTipoCuota(nombreTipoCuota);
+        if (socios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(socios);
+        }
+    }
+
+    @Operation(description = "Añade un nuevo socio", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @PostMapping("/")
     public ResponseEntity<Map<String, Object>> save(@Valid @RequestBody SocioDTO socioDTO, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
-    
+
         if (result.hasErrors()) {
             List<String> errors = result.getFieldErrors()
                     .stream()
@@ -87,45 +96,44 @@ public class SocioController {
             response.put("errors", errors);
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-    
+
         try {
             // Convertir el DTO de socio a una entidad
             Socio socio = convert.convertSocioEntity(socioDTO);
-    
+
             // Crear una nueva persona
             Persona persona = new Persona();
             persona.setCedula(socioDTO.getCedula());
             persona.setNombre(socioDTO.getNombrePersona());
             persona.setEmail(socioDTO.getEmail());
             persona.setTelefono(socioDTO.getTelefono());
-    
+
             // Guardar la persona en el repositorio
             persona = repositoryPersona.save(persona);
-    
+
             // Asignar la persona al socio
             socio.setPersona(persona);
-    
+
             // Guardar el socio en el repositorio
             socio = repositorySocio.save(socio);
-    
+
             // Convertir la entidad de socio a DTO y retornarla
             SocioDTO savedSocioDTO = convert.convertSocioDTO(socio);
             response.put("mensaje", "El socio ha sido creado con éxito");
             response.put("socio", savedSocioDTO);
             return new ResponseEntity<>(response, HttpStatus.OK);
-    
+
         } catch (DataAccessException e) {
             response.put("mensaje", "Error al realizar el insert en la base de datos");
             response.put("error", e.getMessage().concat(":").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    
+
         }
     }
-    
 
-    @Operation(description = "Actualiza los datos de un socio por su id", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Actualiza los datos de un socio por su id", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> update(@Valid @RequestBody Socio socio, BindingResult result,
             @PathVariable Long id) {
@@ -159,9 +167,9 @@ public class SocioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(description = "Elimina un socio por su id", summary ="Return 204 si no hay registros")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
-    @ApiResponse(responseCode = "500", description = "Internal error")})
+    @Operation(description = "Elimina un socio por su id", summary = "Return 204 si no hay registros")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Exito"),
+            @ApiResponse(responseCode = "500", description = "Internal error") })
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> delete(@PathVariable Long id) {
 
@@ -177,5 +185,5 @@ public class SocioController {
         response.put("message", "Socio eliminado exitosamente");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    
+
 }

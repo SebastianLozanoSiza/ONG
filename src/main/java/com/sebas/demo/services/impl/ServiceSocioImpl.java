@@ -53,6 +53,14 @@ public class ServiceSocioImpl implements ServiceSocio {
     }
 
     @Override
+    public List<SocioDTO> findByTipoCuota(String nombreTipoCuota) {
+        List<Socio> socios = repositorySocio.findByTipoCuotaNombre(nombreTipoCuota);
+        return socios.stream()
+                .map(socio -> convert.convertSocioDTO(socio))
+                .toList();
+    }
+
+    @Override
     public SocioDTO save(PersonaDTO persona, SocioDTO socio) {
         // Convertir el DTO de persona a entidad y guardarla si no es nula
         Persona personaEntity = null;

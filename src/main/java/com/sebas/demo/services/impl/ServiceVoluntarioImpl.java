@@ -13,7 +13,7 @@ import com.sebas.demo.config.PersonaDTOConverter;
 import com.sebas.demo.config.VoluntarioDTOConverter;
 import com.sebas.demo.dto.PersonaDTO;
 import com.sebas.demo.dto.VoluntarioDTO;
-import com.sebas.demo.repositories.RepositorioOcupacion;
+import com.sebas.demo.repositories.RepositoryOcupacion;
 import com.sebas.demo.repositories.RepositoryPersona;
 import com.sebas.demo.repositories.RepositorySede;
 import com.sebas.demo.repositories.RepositoryVoluntario;
@@ -32,7 +32,7 @@ public class ServiceVoluntarioImpl implements ServiceVoluntario {
     private RepositoryVoluntario repositoryVoluntario;
     private RepositoryPersona repositoryPersona;
     private RepositorySede repositorySede;
-    private RepositorioOcupacion repositoryOcupacion;
+    private RepositoryOcupacion repositoryOcupacion;
 
     @Autowired
     private VoluntarioDTOConverter convert;
